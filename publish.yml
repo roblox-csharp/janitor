@@ -1,0 +1,50 @@
+name: Publish
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up .NET Core
+      uses: actions/setup-dotnet@v4.0.1
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Install xmllint
+      run: sudo apt-get update && sudo apt-get install -y libxml2-utils
+
+    - name: Add GitHub source to NuGet
+      run: dotnet nuget add source --username roblox-csharp --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name rbxcs "https://nuget.pkg.github.com/roblox-csharp/index.json"
+
+    - name: Extract version from .csproj
+      id: extract_version
+      run: |
+        VERSION=$(xmllint --xpath "string(//Project/PropertyGroup/Version)" Janitor.csproj)
+        echo "PACKAGE_VERSION=$VERSION" >> $GITHUB_ENV
+
+    - name: Package the project
+      run: dotnet pack --configuration Release
+
+    - name: Check if version is already published
+      id: check_version
+      run: |
+        VERSION_EXISTS=$(dotnet nuget search roblox-cs --source "rbxcs" | grep -c "${{ env.PACKAGE_VERSION }}" || true)
+        echo "VERSION_EXISTS=$VERSION_EXISTS" >> $GITHUB_ENV
+
+    - name: Find and publish the latest package
+      if: env.VERSION_EXISTS == '0'
+      run: |
+        PACKAGE_PATH=$(find ./bin/Release -name "*.nupkg" -type f -print0 | xargs -0 ls -1t | head -n 1)
+        dotnet nuget push "$PACKAGE_PATH" --api-key ${{ secrets.GITHUB_TOKEN }} --source "rbxcs" --skip-duplicate
+
+    - name: Version already published
+      if: env.VERSION_EXISTS != '0'
+      run: echo "The version is already published. Skipping publish step."

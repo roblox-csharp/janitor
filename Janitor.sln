@@ -3,7 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Janitor", "Janitor.csproj", "{CCEFA01D-7DAC-494B-8140-C75571CFF616}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Janitor", "Janitor.csproj", "{CCEFA01D-7DAC-494B-8140-C75571CFF616}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{6C1F5C39-C804-49D5-9ED5-F0F6EA844024}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{BC1F990B-131B-464D-9F82-9E4682C1CEEA}"
+	ProjectSection(SolutionItems) = preProject
+		publish.yml = publish.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,6 +25,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BC1F990B-131B-464D-9F82-9E4682C1CEEA} = {6C1F5C39-C804-49D5-9ED5-F0F6EA844024}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {08040003-B6C0-4E25-AB17-A81F1F635A43}
