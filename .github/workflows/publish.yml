@@ -31,7 +31,7 @@ jobs:
         echo "PACKAGE_VERSION=$VERSION" >> $GITHUB_ENV
 
     - name: Package the project
-      run: dotnet pack --configuration Release
+      run: dotnet pack --include-source -c Release
 
     - name: Check if version is already published
       id: check_version
