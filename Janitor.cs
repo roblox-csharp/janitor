@@ -1,6 +1,6 @@
 ﻿using Roblox;
 
-namespace Janitor
+namespace JanitorModule
 {
     public class Janitor : Janitor<string>
     { 
