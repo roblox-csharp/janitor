@@ -2,6 +2,14 @@
 
 namespace JanitorModule
 {
+    interface IDestroyable {
+        void Destroy();
+    }
+
+    interface IDisconnectable {
+        void Disconnect();
+    }
+    
     public class Janitor : Janitor<string>
     { 
     }
@@ -16,9 +24,29 @@ namespace JanitorModule
             return default;
         }
 
-        public T Add<T>(T obj, string? methodName = null, I? index = default) where T : notnull
+        public IDisconnectable Add(IDisconnectable obj, string? methodName = null, I? index = default)
         {
             return default!;
+        }
+
+        public IDestroyable Add(IDestroyable obj, string? methodName = null, I? index = default)
+        {
+            return default!;
+        }
+
+        public Action Add(Action obj, string? methodName = null, I? index = default)
+        {
+            return default!;
+        }
+
+        public object Add(object obj, string? methodName = null, I? index = default)
+        {
+            return default!;
+        }
+
+        public object AddObject(Type obj, string? methodName = null, I? index = default)
+        {
+            return default;
         }
 
         public T AddObject<T>(Type obj, string? methodName = null, I? index = default) where T : notnull
@@ -44,6 +72,11 @@ namespace JanitorModule
         public Janitor RemoveListNoClean(params I[] indices)
         {
             return null!;
+        }
+
+        public object? Get(I index)
+        {
+            return default;
         }
 
         public T? Get<T>(I index) where T : notnull
