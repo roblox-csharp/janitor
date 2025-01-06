@@ -2,11 +2,11 @@
 
 namespace JanitorModule
 {
-    interface IDestroyable {
+    public interface IDestroyable {
         void Destroy();
     }
 
-    interface IDisconnectable {
+    public interface IDisconnectable {
         void Disconnect();
     }
     
